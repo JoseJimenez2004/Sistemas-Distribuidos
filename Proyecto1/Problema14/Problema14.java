@@ -1,0 +1,3 @@
+//Escribe un programa que lea un número X y un número Y. Mostrar los números de Y en Y, 
+//comenzando en X hasta llegar a 200. Ejmplo: X = 8, Y = 2, el resultado comenzaría de la siguiente 
+//manera: 8, 10, 12, 14, 16, 18 … 
