@@ -1,0 +1,871 @@
+************************************************************************************************************************
+// Escribe un programa que reciba una cantidad en grados Centígrados
+// e indique a cuánto equivale en grados Fahrenheit.
+// Fórmula: F = 32 + (9 * C / 5).
+
+import java.util.Scanner;
+
+public class Problema1 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese la temperatura en grados Centígrados: ");
+        double centigrados = scanner.nextDouble();
+
+        double fahrenheit = 32 + (9 * centigrados / 5);
+
+        System.out.println("La temperatura en grados Fahrenheit es: " + fahrenheit);
+
+        scanner.close();
+    }
+}
+
+************************************************************************************************************************
+//Escriba un Programa que solicite los valores de a,b,c y d (como numeros enteros) y calcule el valor
+// de la multiplicacion y lo demuestre en pantall en forma de numero con decimales y en forma de fraccion
+// ejemplo: 17/33
+
+
+import java.util.Scanner;
+import java.text.DecimalFormat;
+import java.math.BigInteger;
+
+public class Problema2 {
+    public static void main(String[] args){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese el valor de a:");
+        int a = scanner.nextInt();
+        System.out.println("Ingrese el valor de b:");
+        int b = scanner.nextInt();
+        System.out.println("Ingrese el valor de c:");
+        int c = scanner.nextInt();
+        System.out.println("Ingrese el valor de d:");
+        int d = scanner.nextInt();
+
+        BigInteger numerador = BigInteger.valueOf(a).multiply(BigInteger.valueOf(c));
+        BigInteger denominador = BigInteger.valueOf(b).multiply(BigInteger.valueOf(d));
+
+        // Mostrar como decimal
+        double resultadoDecimal = numerador.doubleValue() / denominador.doubleValue();
+        DecimalFormat df = new DecimalFormat("#.######");
+        System.out.println("Resultado decimal: " + df.format(resultadoDecimal));
+
+        // Mostrar como fracción simplificada
+        BigInteger gcd = numerador.gcd(denominador);
+        BigInteger numSimplificado = numerador.divide(gcd);
+        BigInteger denSimplificado = denominador.divide(gcd);
+        System.out.println("Resultado fracción: " + numSimplificado + "/" + denSimplificado);
+
+    }
+
+}
+************************************************************************************************************************
+//Escribe un programa que calcule el radio de la circunferencia inscruta en un triangulo.
+import java.util.Scanner;
+public class Problema3 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese el valor del lado a: ");
+        double a = scanner.nextDouble();
+
+        System.out.print("Ingrese el valor del lado b: ");
+        double b = scanner.nextDouble();
+
+        System.out.print("Ingrese el valor del lado c: ");
+        double c = scanner.nextDouble();
+
+        double s = (a + b + c) / 2; // Semiperimetro
+        double area = Math.sqrt(s * (s - a) * (s - b) * (s - c)); // Area usando la formula de Heron
+        double radio = area / s; // Radio de la circunferencia inscrita
+
+        System.out.printf("El radio de la circunferencia inscrita es: %.2f\n", radio);
+        
+        scanner.close();
+    }
+}
+************************************************************************************************************************
+//Una universidad comenzara a asignar a sus estudiantes a diferentes dormitorios segun su sexo y
+// edad. Escribe un programa que solicite el sexo (H/M) y edad e indique de acuerdo con la siguiente tabla
+//en que edicio deben ser asignados. Validar que el sexo y edad sean valores correctos.
+// Hombre, 18 años = Edificio A
+// Mujer, 18 años = Edificio B
+// Hombre, 19 a 22 años = Edificio C
+// Mujer, 19 a 22 años = Edificio D
+// Hombre, Mayor de 22 años = Edificio E1
+// Mujer, Mayor de 22 años = Edificio E2
+
+import java.util.Scanner;
+public class Problema4 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese el sexo (H/M): ");
+        String sexo = scanner.nextLine().toUpperCase();
+
+        System.out.print("Ingrese la edad: ");
+        int edad = scanner.nextInt();
+
+        if ((sexo.equals("H") || sexo.equals("M")) && edad > 0) {
+            if (sexo.equals("H")) {
+                if (edad == 18) {
+                    System.out.println("Asignado al Edificio A");
+                } else if (edad >= 19 && edad <= 22) {
+                    System.out.println("Asignado al Edificio C");
+                } else if (edad > 22) {
+                    System.out.println("Asignado al Edificio E1");
+                } else {
+                    System.out.println("Edad no válida para asignación.");
+                }
+            } else if (sexo.equals("M")) {
+                if (edad == 18) {
+                    System.out.println("Asignado al Edificio B");
+                } else if (edad >= 19 && edad <= 22) {
+                    System.out.println("Asignado al Edificio D");
+                } else if (edad > 22) {
+                    System.out.println("Asignado al Edificio E2");
+                } else {
+                    System.out.println("Edad no válida para asignación.");
+                }
+            }
+        } else {
+            System.out.println("Sexo o edad no válidos. Por favor ingrese H o M para sexo y una edad positiva.");
+        }
+
+        scanner.close();
+    }
+}
+************************************************************************************************************************
+//Escribir un programa que indique cuantos dias de vacaciones le corresponde a un empleado
+//considerando los años que ha trabajado en la empresa. Entre 1 y 5 años corresponden 5 dias de
+//vacaciones, entre 6 y 10 años deben ser 10 dias de vacaciones, de alli en adelante, es un dia de
+//vacaciones extra por cada año trabajando (a partir de 10), a partir de 20 años de trabajo se añaden 2 dias
+//de vacaciones por cada año hasta un maximo de 45 dias.
+
+import java.util.Scanner;
+public class Problema5 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese los años trabajados en la empresa: ");
+        int añosTrabajados = scanner.nextInt();
+
+        int diasVacaciones;
+
+        if (añosTrabajados >= 1 && añosTrabajados <= 5) {
+            diasVacaciones = 5;
+        } else if (añosTrabajados >= 6 && añosTrabajados <= 10) {
+            diasVacaciones = 10;
+        } else if (añosTrabajados > 10 && añosTrabajados < 20) {
+            diasVacaciones = 10 + (añosTrabajados - 10);
+        } else if (añosTrabajados >= 20) {
+            diasVacaciones = Math.min(10 + (10) + 2 * (añosTrabajados - 20), 45);
+        } else {
+            System.out.println("Años trabajados no válidos. Deben ser un número positivo.");
+            scanner.close();
+            return;
+        }
+
+        System.out.println("Le corresponden " + diasVacaciones + " días de vacaciones.");
+
+        scanner.close();
+    }
+}
+************************************************************************************************************************
+//Calcular el cobro que una caseta de cuota debe realizar a un vehiculo de acuerdo con las
+//siguientes reglas. Motocicletas = $20, 2 ejes(automoviles) = $40, 3 ejes (camionetas) = $60, 4, 5 y ejes
+//(caiones de carga) = $250, eje adicional $50. Por ejemplo, si llega un trailer de 8 ejes se deben cobrar $350
+
+import java.util.Scanner;
+public class Problema6 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese el número de ejes del vehículo: ");
+        int numeroEjes = scanner.nextInt();
+
+        int cobro;
+
+        if (numeroEjes == 2) {
+            cobro = 40;
+        } else if (numeroEjes == 3) {
+            cobro = 60;
+        } else if (numeroEjes >= 4 && numeroEjes <= 5) {
+            cobro = 250;
+        } else if (numeroEjes > 5) {
+            cobro = 250 + (numeroEjes - 5) * 50;
+        } else if (numeroEjes == 1) {
+            cobro = 20;
+        } else {
+            System.out.println("Número de ejes no válido. Debe ser un número positivo.");
+            scanner.close();
+            return;
+        }
+
+        System.out.println("El cobro para el vehículo es: $" + cobro);
+
+        scanner.close();
+    }
+}
+************************************************************************************************************************
+//La Comisión Federal de Electricidad cobra el consumo de electricidad de acuerdo con un 
+//tabulador basado en los kilowatts consumidos en el periodo. La tabla es la siguiente: 
+//Costo del kW para Hogares: 
+//De 0 a 250 kW el costo por kW es de $0.65 
+//De 251 a 500 kW el costo por kW es de $0.85 
+//De 501 a 1200 kW el costo por kW es de $1.50 
+//De 1201 a 2100 kW el costo por kW es de $2.50 
+//De 2101 kW hacia arriba el costo por kW es de $3.00 
+//Costo del kW para Negocios:  
+//$5.00, el costo es fijo por kilowatt sin importar la cantidad consumida. 
+//Ejemplo: 
+//a) Si en el hogar se consumen 737 kW durante el periodo entonces el total a pagar es de: 
+//250*0.65 + 250*0,85 + 237* 1.50 = 162.50 + 212.50 + 355.50 = $730.50 
+//b) Si en un negocio se consumen 250 kW, el valor a pagar serían de: 250* 5 = $1,250 
+//Escribe un programa que pregunte la cantidad de kW consumidos, si el cliente tiene un contrato de 
+//Hogar o de Negocio y dé como resultado la cantidad a pagar. 
+
+import java.util.Scanner;
+public class Problema7 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese la cantidad de kW consumidos: ");
+        int kwConsumidos = scanner.nextInt();
+
+        System.out.print("Ingrese el tipo de contrato (H para Hogar, N para Negocio): ");
+        String tipoContrato = scanner.next().toUpperCase();
+
+        double totalPagar = 0;
+
+        if (kwConsumidos < 0) {
+            System.out.println("Cantidad de kW no válida. Debe ser un número positivo.");
+            scanner.close();
+            return;
+        }
+
+        if (tipoContrato.equals("H")) {
+            if (kwConsumidos <= 250) {
+                totalPagar = kwConsumidos * 0.65;
+            } else if (kwConsumidos <= 500) {
+                totalPagar = 250 * 0.65 + (kwConsumidos - 250) * 0.85;
+            } else if (kwConsumidos <= 1200) {
+                totalPagar = 250 * 0.65 + 250 * 0.85 + (kwConsumidos - 500) * 1.50;
+            } else if (kwConsumidos <= 2100) {
+                totalPagar = 250 * 0.65 + 250 * 0.85 + 700 * 1.50 + (kwConsumidos - 1200) * 2.50;
+            } else {
+                totalPagar = 250 * 0.65 + 250 * 0.85 + 700 * 1.50 + 900 * 2.50 + (kwConsumidos - 2100) * 3.00;
+            }
+        } else if (tipoContrato.equals("N")) {
+            totalPagar = kwConsumidos * 5.00;
+        } else {
+            System.out.println("Tipo de contrato no válido. Debe ser H o N.");
+            scanner.close();
+            return;
+        }
+
+        System.out.printf("El total a pagar es: $%.2f%n", totalPagar);
+
+        scanner.close();
+    }
+}
+************************************************************************************************************************
+//Escribe un programa que pida tres números y que los muestre ordenados de mayor a menor. 
+//Nota: Este ejercicio no requiere ciclos ni ordenamientos especiales, puede realizarse utilizando “IF”. 
+import java.util.Scanner;
+public class Problema8 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese el primer número: ");
+        int num1 = scanner.nextInt();
+
+        System.out.print("Ingrese el segundo número: ");
+        int num2 = scanner.nextInt();
+
+        System.out.print("Ingrese el tercer número: ");
+        int num3 = scanner.nextInt();
+
+        int mayor, medio, menor;
+
+        if (num1 >= num2 && num1 >= num3) {
+            mayor = num1;
+            if (num2 >= num3) {
+                medio = num2;
+                menor = num3;
+            } else {
+                medio = num3;
+                menor = num2;
+            }
+        } else if (num2 >= num1 && num2 >= num3) {
+            mayor = num2;
+            if (num1 >= num3) {
+                medio = num1;
+                menor = num3;
+            } else {
+                medio = num3;
+                menor = num1;
+            }
+        } else {
+            mayor = num3;
+            if (num1 >= num2) {
+                medio = num1;
+                menor = num2;
+            } else {
+                medio = num2;
+                menor = num1;
+            }
+        }
+
+        System.out.println("Números ordenados de mayor a menor: " + mayor + ", " + medio + ", " + menor);
+
+        scanner.close();
+    }
+}
+************************************************************************************************************************
+//Lee la definición de números capicúa y escribe un programa que reciba un número entre 0 y 
+//9999 e indique si es un número capicúa. Nota, no es necesario utilizar ciclos, es posible realizarlo 
+//utilizando divisiones enteras. 
+import java.util.Scanner;
+public class Problema9 {    
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese un número entre 0 y 9999: ");
+        int numero = scanner.nextInt();
+
+        if (numero < 0 || numero > 9999) {
+            System.out.println("Número fuera de rango. Debe estar entre 0 y 9999.");
+            scanner.close();
+            return;
+        }
+
+        int digito1 = numero / 1000; // Primer dígito
+        int digito2 = (numero / 100) % 10; // Segundo dígito
+        int digito3 = (numero / 10) % 10; // Tercer dígito
+        int digito4 = numero % 10; // Cuarto dígito
+
+        boolean esCapicua = false;
+
+        if (numero < 10) { // Números de un dígito
+            esCapicua = true;
+        } else if (numero < 100) { // Números de dos dígitos
+            esCapicua = (digito1 == digito4);
+        } else if (numero < 1000) { // Números de tres dígitos
+            esCapicua = (digito1 == digito3);
+        } else { // Números de cuatro dígitos
+            esCapicua = (digito1 == digito4) && (digito2 == digito3);
+        }
+
+        if (esCapicua) {
+            System.out.println(numero + " es un número capicúa.");
+        } else {
+            System.out.println(numero + " no es un número capicúa.");
+        }
+
+        scanner.close();
+    }
+}
+************************************************************************************************************************
+//scribe un programa que solicite al usuario un número entero y dé como resultado la suma de 
+//todos los números desde el 1 hasta dicho número. 
+import java.util.Scanner;
+public class Problema10 {   
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese un número entero positivo: ");
+        int numero = scanner.nextInt();
+
+        if (numero < 1) {
+            System.out.println("El número debe ser un entero positivo mayor o igual a 1.");
+            scanner.close();
+            return;
+        }
+
+        int suma = 0;
+        for (int i = 1; i <= numero; i++) {
+            suma += i;
+        }
+
+        System.out.println("La suma de todos los números desde 1 hasta " + numero + " es: " + suma);
+
+        scanner.close();
+    }
+}
+************************************************************************************************************************
+//Encontrar los números entre el 1 y el 5000 que cumplen la regla de que la suma del cubo de sus 
+//dígitos es igual al número mismo. Ejemplo: 153 = 13 + 53 + 33 
+import java.util.Scanner;
+public class Problema11 {       
+    public static void main(String[] args) {
+        System.out.println("Números entre 1 y 5000 que cumplen la regla de que la suma del cubo de sus dígitos es igual al número mismo:");
+
+        for (int numero = 1; numero <= 5000; numero++) {
+            int sumaCubos = 0;
+            int temp = numero;
+
+            while (temp > 0) {
+                int digito = temp % 10;
+                sumaCubos += digito * digito * digito;
+                temp /= 10;
+            }
+
+            if (sumaCubos == numero) {
+                System.out.println(numero);
+            }
+        }
+    }
+}
+************************************************************************************************************************
+//Un número perfecto es un número natural que es igual a la suma de sus divisores propios, sin 
+//incluirse él mismo. Por ejemplo, el número 6 es perfecto porque sus divisores son 1, 2 y 3; y dado que 
+//1+2+3 = 6 entonces el 6 es un número perfecto. Escriba un programa que indique los números perfectos 
+//existentes entre 1 y 10,000. 
+import java.util.Scanner;
+public class Problema12 {   
+    public static void main(String[] args) {
+        System.out.println("Números perfectos entre 1 y 10,000:");
+
+        for (int numero = 1; numero <= 10000; numero++) {
+            int sumaDivisores = 0;
+
+            for (int i = 1; i <= numero / 2; i++) {
+                if (numero % i == 0) {
+                    sumaDivisores += i;
+                }
+            }
+
+            if (sumaDivisores == numero) {
+                System.out.println(numero);
+            }
+        }
+    }
+}
+************************************************************************************************************************
+//Calcular cuánto dinero tendría en una cuenta de ahorro al final de 20 años si al inicio de cada 
+//año añado $10,000, el rendimiento anual es 5% y reinvierto las ganancias obtenidas cada año.
+import java.util.Scanner;
+public class Problema13 {   
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        double ahorroAnual = 10000;
+        double tasaInteres = 0.05;
+        int años = 20;
+
+        double totalAhorro = 0;
+
+        for (int i = 1; i <= años; i++) {
+            totalAhorro += ahorroAnual; // Añadir el ahorro anual
+            totalAhorro += totalAhorro * tasaInteres; // Añadir el interés ganado
+        }
+
+        System.out.printf("El total en la cuenta de ahorro después de %d años es: $%.2f%n", años, totalAhorro);
+
+        scanner.close();
+    }
+}
+************************************************************************************************************************
+//Escribe un programa que lea un número X y un número Y. Mostrar los números de Y en Y, 
+//comenzando en X hasta llegar a 200. Ejmplo: X = 8, Y = 2, el resultado comenzaría de la siguiente 
+//manera: 8, 10, 12, 14, 16, 18 … 
+import java.util.Scanner;
+public class Problema14 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese el número X (punto de inicio): ");
+        int x = scanner.nextInt();
+
+        System.out.print("Ingrese el número Y (incremento): ");
+        int y = scanner.nextInt();
+
+        if (y <= 0) {
+            System.out.println("El número Y debe ser un entero positivo mayor que 0.");
+            scanner.close();
+            return;
+        }
+
+        System.out.println("Números desde " + x + " hasta 200, incrementando de " + y + " en " + y + ":");
+        for (int i = x; i <= 200; i += y) {
+            System.out.println(i);
+        }
+
+        scanner.close();
+    }
+}
+************************************************************************************************************************
+ //En este programa la computadora debe elegir un número al azar entre 1 y 100 y solicitará al 
+//usuario que “adivine” el número. A cada intento del usuario la computadora debe indicar si el número 
+//que el usuario introdujo es mayor o menor que el número prefijado. El programa debe terminar cuando 
+//el usuario “adivine” el número o introduzca el número “0” para salir. 
+import java.util.Scanner;
+import java.util.Random;
+public class Problema15 {   
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+
+        int numeroSecreto = random.nextInt(100) + 1; // Número aleatorio entre 1 y 100
+        int intento;
+
+        System.out.println("Adivina el número entre 1 y 100 (ingresa 0 para salir):");
+
+        while (true) {
+            System.out.print("Tu intento: ");
+            intento = scanner.nextInt();
+
+            if (intento == 0) {
+                System.out.println("Has salido del juego. El número era: " + numeroSecreto);
+                break;
+            }
+
+            if (intento < numeroSecreto) {
+                System.out.println("El número es mayor.");
+            } else if (intento > numeroSecreto) {
+                System.out.println("El número es menor.");
+            } else {
+                System.out.println("¡Felicidades! Has adivinado el número.");
+                break;
+            }
+        }
+
+        scanner.close();
+    }
+}
+************************************************************************************************************************
+//El programa debe leer números mientras sean diferentes de 0. Posteriormente calcular el 
+//promedio de los números leídos.
+import java.util.Scanner;
+public class Problema16 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int suma = 0;
+        int contador = 0;
+
+        System.out.println("Ingrese números enteros (ingrese 0 para finalizar):");
+
+        while (true) {
+            int numero = scanner.nextInt();
+
+            if (numero == 0) {
+                break;
+            }
+
+            suma += numero;
+            contador++;
+        }
+
+        if (contador > 0) {
+            double promedio = (double) suma / contador;
+            System.out.println("El promedio de los números ingresados es: " + promedio);
+        } else {
+            System.out.println("No se ingresaron números.");
+        }
+
+        scanner.close();
+    }
+}
+************************************************************************************************************************
+//Leer 10 números enteros, guardarlos en orden inverso al que fueron introducidos y mostrarlos 
+//en pantalla. 
+import java.util.Scanner;
+public class Problema17 {   
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int[] numeros = new int[10];
+
+        System.out.println("Ingrese 10 números enteros:");
+
+        for (int i = 0; i < 10; i++) {
+            System.out.print("Número " + (i + 1) + ": ");
+            numeros[i] = scanner.nextInt();
+        }
+
+        System.out.println("Números en orden inverso:");
+        for (int i = 9; i >= 0; i--) {
+            System.out.println(numeros[i]);
+        }
+
+        scanner.close();
+    }
+}
+************************************************************************************************************************
+//Leer un arreglo de 10 nombres de ciudades e indicar cuál es la que tiene el nombre más largo. 
+import java.util.Scanner;
+public class Problema18 {    
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String[] ciudades = new String[10];
+
+        System.out.println("Ingrese 10 nombres de ciudades:");
+
+        for (int i = 0; i < 10; i++) {
+            System.out.print("Ciudad " + (i + 1) + ": ");
+            ciudades[i] = scanner.nextLine();
+        }
+
+        String ciudadMasLarga = "";
+        for (String ciudad : ciudades) {
+            if (ciudad.length() > ciudadMasLarga.length()) {
+                ciudadMasLarga = ciudad;
+            }
+        }
+
+        System.out.println("La ciudad con el nombre más largo es: " + ciudadMasLarga);
+
+        scanner.close();
+    }
+}
+************************************************************************************************************************
+//Leer en un arreglo una serie de 10 números e indicar si todos los elementos están ordenados de 
+//forma descendente, es decir, si cumplen la regla de que cada elemento del arreglo es menor o igual que 
+//el elemento anterior. 
+import java.util.Scanner;
+public class Problema19 {    
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int[] numeros = new int[10];
+
+        System.out.println("Ingrese 10 números:");
+
+        for (int i = 0; i < 10; i++) {
+            System.out.print("Número " + (i + 1) + ": ");
+            numeros[i] = scanner.nextInt();
+        }
+
+        boolean esDescendente = true;
+        for (int i = 1; i < numeros.length; i++) {
+            if (numeros[i] > numeros[i - 1]) {
+                esDescendente = false;
+                break;
+            }
+        }
+
+        if (esDescendente) {
+            System.out.println("Los números están ordenados de forma descendente.");
+        } else {
+            System.out.println("Los números no están ordenados de forma descendente.");
+        }
+
+        scanner.close();
+    }
+}
+************************************************************************************************************************
+//Leer una serie de 10 números, moverlos una posición hacia adelante en el arreglo y mostrar el 
+//arreglo resultante. Ejemplo, tenemos el siguiente arreglo 1, 2, 3, 4, 5, si desplazamos los elementos una 
+//posición hacia adelante debemos obtener 5, 1, 2, 3, 4. Es decir, el primer elemento se mueve hacia el 
+//segundo lugar, el segundo al tercero, etc., y el último al primero. 
+import java.util.Scanner;
+public class Problema20 {    
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int[] numeros = new int[10];
+
+        System.out.println("Ingrese 10 números:");
+
+        for (int i = 0; i < 10; i++) {
+            System.out.print("Número " + (i + 1) + ": ");
+            numeros[i] = scanner.nextInt();
+        }
+
+        // Desplazar los elementos una posición hacia adelante
+        int ultimo = numeros[numeros.length - 1];
+        for (int i = numeros.length - 1; i > 0; i--) {
+            numeros[i] = numeros[i - 1];
+        }
+        numeros[0] = ultimo;
+
+        System.out.println("Números después de desplazar una posición hacia adelante:");
+        for (int numero : numeros) {
+            System.out.println(numero);
+        }
+
+        scanner.close();
+    }
+}
+************************************************************************************************************************
+//Escribe un programa que lea un arreglo bidimensional de 5x5 y muestre la suma del total del 
+//arreglo.  
+import java.util.Scanner;
+public class Problema21 {   
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int[][] matriz = new int[5][5];
+        int sumaTotal = 0;
+
+        System.out.println("Ingrese los elementos de la matriz 5x5:");
+
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                System.out.print("Elemento [" + i + "][" + j + "]: ");
+                matriz[i][j] = scanner.nextInt();
+                sumaTotal += matriz[i][j];
+            }
+        }
+
+        System.out.println("La suma total de los elementos de la matriz es: " + sumaTotal);
+
+        scanner.close();
+    }
+}
+************************************************************************************************************************
+//Escribe un programa que solicite al usuario los tamaños de las dos matrices a multiplicar y luego 
+//solicite los valores, realice la multiplicación y muestre el resultado.  
+import java.util.Scanner;
+public class Problema22 {   
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese el número de filas de la primera matriz: ");
+        int filasA = scanner.nextInt();
+        System.out.print("Ingrese el número de columnas de la primera matriz (y filas de la segunda): ");
+        int columnasA = scanner.nextInt();
+        System.out.print("Ingrese el número de columnas de la segunda matriz: ");
+        int columnasB = scanner.nextInt();
+
+        int[][] matrizA = new int[filasA][columnasA];
+        int[][] matrizB = new int[columnasA][columnasB];
+        int[][] resultado = new int[filasA][columnasB];
+
+        System.out.println("Ingrese los elementos de la primera matriz:");
+        for (int i = 0; i < filasA; i++) {
+            for (int j = 0; j < columnasA; j++) {
+                System.out.print("Elemento [" + i + "][" + j + "]: ");
+                matrizA[i][j] = scanner.nextInt();
+            }
+        }
+
+        System.out.println("Ingrese los elementos de la segunda matriz:");
+        for (int i = 0; i < columnasA; i++) {
+            for (int j = 0; j < columnasB; j++) {
+                System.out.print("Elemento [" + i + "][" + j + "]: ");
+                matrizB[i][j] = scanner.nextInt();
+            }
+        }
+
+        // Multiplicación de matrices
+        for (int i = 0; i < filasA; i++) {
+            for (int j = 0; j < columnasB; j++) {
+                for (int k = 0; k < columnasA; k++) {
+                    resultado[i][j] += matrizA[i][k] * matrizB[k][j];
+                }
+            }
+        }
+
+        System.out.println("El resultado de la multiplicación de las matrices es:");
+        for (int i = 0; i < filasA; i++) {
+            for (int j = 0; j < columnasB; j++) {
+                System.out.print(resultado[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+        scanner.close();
+    }
+}
+
+************************************************************************************************************************
+//Escribe un programa que lea un archivo de texto y que escriba en otro archivo solo las líneas 
+//impares del archivo original.
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+public class Problema23 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese el nombre del archivo de entrada (con extensión .txt): ");
+        String archivoEntrada = scanner.nextLine();
+
+        System.out.print("Ingrese el nombre del archivo de salida (con extensión .txt): ");
+        String archivoSalida = scanner.nextLine();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(archivoEntrada));
+             BufferedWriter bw = new BufferedWriter(new FileWriter(archivoSalida))) {
+
+            String linea;
+            int numeroLinea = 1;
+
+            while ((linea = br.readLine()) != null) {
+                if (numeroLinea % 2 != 0) { // Si la línea es impar
+                    bw.write(linea);
+                    bw.newLine();
+                }
+                numeroLinea++;
+            }
+
+            System.out.println("Las líneas impares se han escrito en " + archivoSalida);
+
+        } catch (IOException e) {
+            System.out.println("Ocurrió un error al procesar los archivos: " + e.getMessage());
+        }
+
+        scanner.close();
+    }
+}
+************************************************************************************************************************
+//Escribe un programa que lea un archivo de texto plano, lo analice y obtenga la cantidad de veces 
+//que se encuentra cada letra en el archivo. 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+public class Problema24 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Ingrese el nombre del archivo de texto (con extensión .txt): ");
+        String nombreArchivo = scanner.nextLine();
+
+        Map<Character, Integer> conteoLetras = new HashMap<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                for (char c : linea.toCharArray()) {
+                    if (Character.isLetter(c)) {
+                        c = Character.toLowerCase(c); // Convertir a minúscula para contar sin distinción
+                        conteoLetras.put(c, conteoLetras.getOrDefault(c, 0) + 1);
+                    }
+                }
+            }
+
+            System.out.println("Conteo de letras en el archivo:");
+            for (Map.Entry<Character, Integer> entry : conteoLetras.entrySet()) {
+                System.out.println(entry.getKey() + ": " + entry.getValue());
+            }
+
+        } catch (IOException e) {
+            System.out.println("Ocurrió un error al leer el archivo: " + e.getMessage());
+        }
+
+        scanner.close();
+    }
+}
+************************************************************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
