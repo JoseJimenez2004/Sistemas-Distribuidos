@@ -1,3 +1,11 @@
+
+/**
+ * PROYECTO 2 - Simulación de Nave Espacial con Asteroides
+ * Elaborado por: Jimenez Velazquez Jose Bryan Omar
+ * Profesor: M. en C. Ukranio Coronilla
+ * GRUPO: 7CM4
+ * 
+ */
 package Proyecto2;
 
 import java.awt.*;

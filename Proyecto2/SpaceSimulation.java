@@ -1,3 +1,11 @@
+/**
+ * PROYECTO 2 - Simulación de Nave Espacial con Asteroides
+ * Elaborado por: Jimenez Velazquez Jose Bryan Omar
+ * Profesor: M. en C. Ukranio Coronilla
+ * GRUPO: 7CM4
+ * 
+ */
+
 package Proyecto2;
 
 import javax.swing.*;
@@ -309,7 +317,7 @@ public class SpaceSimulation extends JFrame {
         iconLabel.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 60));
         victoryPanel.add(iconLabel, BorderLayout.NORTH);
 
-        // Mensaje
+        // Mensaje-
         JLabel messageLabel = new JLabel("<html><div style='text-align: center; color: #DDFFDD;'>"
                 + "<h2 style='color: #55FF55; margin: 10px 0;'>¡MISIÓN COMPLETADA! 🌟</h2>"
                 + "<p style='font-size: 14px;'>Has llegado a tu destino evitando todos los asteroides</p>"
