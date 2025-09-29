@@ -1,0 +1,51 @@
+🔹 Petición POST
+Invoke-WebRequest -Uri http://localhost:8081/task -Method POST -Headers @{"X-Debug" = "true"} -Body "1000,2000"
+Envías una petición POST al endpoint /task en localhost:8081,
+con cabecera personalizada X-Debug: true
+y en el cuerpo (Body) mandas los números 1000,2000.
+StatusCode        : 200
+El servidor respondió con código HTTP 200, significa que la operación fue exitosa.
+StatusDescription : OK
+Mensaje descriptivo del estado 200, es decir OK.
+Content           : {69, 108, 32, 114...}
+El contenido de la respuesta, pero en formato binario/ASCII (representación de caracteres).
+RawContent        : HTTP/1.1 200 OK
+                    X-debug-info: La operación tomó 1748200 nanosegundos
+                    Content-Length: 46
+                    Date: Fri, 26 Sep 2025 14:53:35 GMT
+                    El resultado de la multiplicación es 2000000
+Muestra la respuesta completa del servidor:
+Encabezados (X-debug-info, Content-Length, Date)
+Cuerpo del mensaje: "El resultado de la multiplicación es 2000000".
+Headers           : {[X-debug-info, La operación tomó 1748200 nanosegundos], [Content-Length, 46], [Date, Fri, 26 Sep 2025 14:53:35 GMT]}
+Lista de encabezados HTTP devueltos por el servidor.
+RawContentLength  : 46
+Tamaño del contenido de la respuesta (en bytes).
+
+🔹 Petición GET
+curl http://localhost:8081/status
+
+Usas curl para hacer un GET al endpoint /status de tu servidor.
+StatusCode        : 200
+
+El servidor respondió con éxito.
+StatusDescription : OK
+
+Mensaje de estado HTTP, indica que todo está correcto.
+Content           : {69, 108, 32, 115...}
+
+
+Contenido recibido en formato binario/ASCII.
+RawContent        : HTTP/1.1 200 OK
+                    Content-Length: 23
+                    Date: Fri, 26 Sep 2025 14:50:56 GMT
+                    El servidor está vivo
+
+Respuesta completa:
+Encabezados (Content-Length, Date)
+Cuerpo: "El servidor está vivo".
+Headers           : {[Content-Length, 23], [Date, Fri, 26 Sep 2025 14:50:56 GMT]}
+Encabezados HTTP de la respuesta.
+RawContentLength  : 23
+Tamaño del contenido recibido (23 bytes).
+
